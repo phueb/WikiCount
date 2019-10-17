@@ -18,7 +18,7 @@ def make_w2dfs(texts, pos, max_num_docs_per_worker):
         words = [w.lemma_ for w in doc if pos == config.Counting.no_pos or w.pos_ == pos]
 
         if not words:
-            num_skipped += 0
+            num_skipped += 1
             continue
 
         w2df = Counter(words)  # this is very fast
@@ -31,8 +31,7 @@ def make_w2dfs(texts, pos, max_num_docs_per_worker):
         if num_processed == max_num_docs_per_worker:
             break
 
-
     print('Took {} secs to count words with POS={} in {} docs'.format(
-        timer() - start, pos, num_processed))
-    print('Skipped {} docs because they contained no words after filtering'.format(num_skipped))
+        timer() - start, pos, num_processed), flush=True)
+    print('Skipped {} docs because they contained no words after filtering'.format(num_skipped), flush=True)
     return w2dfs
