@@ -1,0 +1,7 @@
+venv
+.idea
+
+text
+data/enwiki*
+extractor_output
+createwikicorpus_runs
