@@ -20,5 +20,6 @@ param2debug = {
 param2default = {
     'wiki_param_name': 'param_1',
     'pos': 'NOUN',
-    'max_num_docs': 5 * 1000 * 1000
+    'max_num_docs': 5 * 1000 * 1000,
+    'min_frequency': 2,  # exclude words that occur less than this value in each document
 }

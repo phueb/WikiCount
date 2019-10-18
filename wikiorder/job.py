@@ -12,6 +12,7 @@ class Params(object):
     wiki_param_name = attr.ib(validator=attr.validators.instance_of(str))
     pos = attr.ib(validator=attr.validators.instance_of(str))
     max_num_docs = attr.ib(validator=attr.validators.instance_of(int))
+    min_frequency = attr.ib(validator=attr.validators.instance_of(int))
     # ludwig
     param_name = attr.ib(validator=attr.validators.instance_of(str))
     job_name = attr.ib(validator=attr.validators.instance_of(str))
@@ -44,7 +45,8 @@ def main(param2val):  # param2val will be different on each machine
     results = pool.map(make_w2dfs,
                        texts,  # first arg
                        [params.pos] * num_texts,  # second arg
-                       [max_num_docs_per_worker] * num_texts  # third arg
+                       [max_num_docs_per_worker] * num_texts,  # third arg
+                       [params.min_frequency] * num_texts  # fourth arg
                        )
     flat_results = [w2df for chunk in results for w2df in chunk]
     print('Num w2dfs: {}'.format(len(flat_results)))

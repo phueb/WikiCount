@@ -7,7 +7,7 @@ from wikiorder import config
 nlp = spacy.load('en_core_web_sm')
 
 
-def make_w2dfs(texts, pos, max_num_docs_per_worker):
+def make_w2dfs(texts, pos, max_num_docs_per_worker, min_num_freq):
     print('Starting worker')
     start = timer()
     w2dfs = []
@@ -22,7 +22,7 @@ def make_w2dfs(texts, pos, max_num_docs_per_worker):
             continue
 
         w2df = Counter(words)  # this is very fast
-        w2dfs.append(w2df)
+        w2dfs.append([w for w, f in w2df.items() if f > min_num_freq])
 
         num_processed += 1
         if num_processed % 1000 == 0:
