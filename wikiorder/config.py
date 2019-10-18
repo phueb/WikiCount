@@ -29,7 +29,7 @@ class Global:
 
 
 class MultiProcessing:
-    num_texts_per_process = 100  # TODO
+    num_texts_per_process = 100  # do not set higher than 100
     num_workers = 4
 
 
