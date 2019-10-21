@@ -10,6 +10,7 @@ from wikiorder.count import make_w2dfs
 @attr.s
 class Params(object):
     wiki_param_name = attr.ib(validator=attr.validators.instance_of(str))
+    num_machines = attr.ib(validator=attr.validators.instance_of(int))
     pos = attr.ib(validator=attr.validators.instance_of(str))
     max_num_docs = attr.ib(validator=attr.validators.instance_of(int))
     min_frequency = attr.ib(validator=attr.validators.instance_of(int))
@@ -34,7 +35,7 @@ def main(param2val):  # param2val will be different on each machine
 
     # load text file and make generator that iterates over docs in chunks (to use with spacy.nlp.pipe)
     path_to_articles = list(wiki_param_path.glob('**/bodies.txt'))[0]
-    f = itertools.islice(path_to_articles.open('r'), params.max_num_docs)
+    f = itertools.islice(path_to_articles.open('r'), params.max_num_docs // params.num_machines)
     texts = [doc for doc in zip(*(f,) * config.MultiProcessing.num_texts_per_process)]
     num_texts = len(texts)
     print('Number of text chunks: {}'.format(num_texts))

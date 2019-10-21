@@ -22,7 +22,7 @@ def make_w2dfs(texts, pos, max_num_docs_per_worker, min_word_freq):
             continue
 
         w2df = Counter(words)  # this is very fast
-        w2dfs.append([w for w, f in w2df.items() if f > min_word_freq])
+        w2dfs.append({w: f for w, f in w2df.items() if f > min_word_freq})
 
         num_processed += 1
         if num_processed % 1000 == 0:
