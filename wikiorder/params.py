@@ -6,9 +6,9 @@ whose bodies.txt file should be used as text input (e.g. counting words).
 NUM_LUDWIG_WORKERS = 6
 
 param2requests = {
-    'wiki_param_name': ['param_{}'.format(21 + i) for i in range(NUM_LUDWIG_WORKERS + 1)],
+    'wiki_param_name': ['param_{}'.format(22 + i) for i in range(NUM_LUDWIG_WORKERS)],
     'pos': ['ALL'],
-    'max_num_docs': [48 * 100]
+    # 'max_num_docs': [48 * 100]
 }
 
 # used to overwrite parameters when --debug flag is on (when calling "ludwig-local")
