@@ -7,7 +7,7 @@ from wikiorder import config
 nlp = spacy.load('en_core_web_sm')
 
 
-def make_w2dfs(texts, pos, max_num_docs_per_worker, min_num_freq):
+def make_w2dfs(texts, pos, max_num_docs_per_worker, min_word_freq):
     print('Starting worker')
     start = timer()
     w2dfs = []
@@ -22,7 +22,7 @@ def make_w2dfs(texts, pos, max_num_docs_per_worker, min_num_freq):
             continue
 
         w2df = Counter(words)  # this is very fast
-        w2dfs.append([w for w, f in w2df.items() if f > min_num_freq])
+        w2dfs.append([w for w, f in w2df.items() if f > min_word_freq])
 
         num_processed += 1
         if num_processed % 1000 == 0:
@@ -31,7 +31,6 @@ def make_w2dfs(texts, pos, max_num_docs_per_worker, min_num_freq):
         if num_processed == max_num_docs_per_worker:
             break
 
-    print('Took {} secs to count words with POS={} in {} docs'.format(
-        timer() - start, pos, num_processed), flush=True)
-    print('Skipped {} docs because they contained no words after filtering'.format(num_skipped), flush=True)
+    print(f'Took {timer() - start} secs to count words with POS={pos} in {num_processed} docs', flush=True)
+    print(f'Skipped {num_skipped} docs because they contained no words after filtering', flush=True)
     return w2dfs

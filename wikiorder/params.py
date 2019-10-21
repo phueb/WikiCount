@@ -5,8 +5,8 @@ whose bodies.txt file should be used as text input (e.g. counting words).
 
 
 param2requests = {
-    'wiki_param_name': ['param_{}'.format(15 + i) for i in range(7)],
-    'pos': ['NOUN'],
+    'wiki_param_name': ['param_{}'.format(21 + i) for i in range(6)],
+    'pos': ['ALL'],
     # 'max_num_docs': [1000]
 }
 
