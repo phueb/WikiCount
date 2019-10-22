@@ -11,14 +11,14 @@ else:
 
 class RemoteDirs:
     research_data = Path(mnt_point) / 'research_data'
-    root = research_data / 'WikiOrder'
+    root = research_data / 'WikiCount'
     runs = root / 'runs'
     wiki = research_data / 'CreateWikiCorpus'
 
 
 class LocalDirs:
     root = Path(__file__).parent.parent
-    src = root / 'wikiorder'
+    src = root / 'wikicount'
     runs = root / '{}_runs'.format(src.name)
 
     wiki = Path('/home/ph/CreateWikiCorpus')  # user must edit this

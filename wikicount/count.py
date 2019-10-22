@@ -2,7 +2,7 @@ from collections import Counter
 from timeit import default_timer as timer
 import spacy
 
-from wikiorder import config
+from wikicount import config
 
 nlp = spacy.load('en_core_web_sm')
 

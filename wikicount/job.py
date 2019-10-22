@@ -3,8 +3,8 @@ import attr
 import itertools
 from pathos.pools import ProcessPool
 
-from wikiorder import config
-from wikiorder.count import make_w2dfs
+from wikicount import config
+from wikicount.count import make_w2dfs
 
 
 @attr.s
