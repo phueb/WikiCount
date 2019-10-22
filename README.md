@@ -1,7 +1,6 @@
-# WikiOrder
+# WikiCount
 
 Research code to count words in all available English Wikipedia articles.
-Allows the user to order articles by various corpus-statistics (e.g. lexical diversity, syntactic complexity). 
 
 ## Requirements
 
