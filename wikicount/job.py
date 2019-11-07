@@ -2,6 +2,7 @@ import pickle
 import attr
 import itertools
 from pathos.pools import ProcessPool
+from pathlib import Path
 
 from wikicount import config
 from wikicount.count import make_w2dfs
@@ -29,7 +30,8 @@ def main(param2val):  # param2val will be different on each machine
     params = Params(**param2val)
     print(params)
 
-    wiki_param_path = config.RemoteDirs.wiki / 'runs' / params.wiki_param_name
+    research_data_path = Path(param2val['project_path']).parent
+    wiki_param_path = research_data_path / 'CreateWikiCorpus' / 'runs' / params.wiki_param_name
     if not wiki_param_path.exists():
         raise FileNotFoundError('{} does not exist'.format(params.wiki_param_name))
 

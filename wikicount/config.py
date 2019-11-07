@@ -1,27 +1,8 @@
 from pathlib import Path
-import sys
-
-if sys.platform == 'darwin':
-    mnt_point = '/Volumes'
-elif 'linux' == sys.platform:
-    mnt_point = '/media'
-else:
-    raise SystemExit('Ludwig does not support this platform')
-
-
-class RemoteDirs:
-    research_data = Path(mnt_point) / 'research_data'
-    root = research_data / 'WikiCount'
-    runs = root / 'runs'
-    wiki = research_data / 'CreateWikiCorpus'
 
 
 class LocalDirs:
     root = Path(__file__).parent.parent
-    src = root / 'wikicount'
-    runs = root / '{}_runs'.format(src.name)
-
-    wiki = Path('/home/ph/CreateWikiCorpus')  # user must edit this
 
 
 class Global:
