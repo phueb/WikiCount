@@ -35,9 +35,14 @@ def main(param2val):  # param2val will be different on each machine
     if not wiki_param_path.exists():
         raise FileNotFoundError('{} does not exist'.format(params.wiki_param_name))
 
-    # load text file and make generator that iterates over docs in chunks (to use with spacy.nlp.pipe)
+    # load text file
     path_to_articles = list(wiki_param_path.glob('**/bodies.txt'))[0]
-    f = itertools.islice(path_to_articles.open('r'), params.max_num_docs // params.num_machines)
+
+    # make generator that iterates over docs in chunks (to use with spacy.nlp.pipe)
+    # note: because params.max_num_docs is the number of total docs requested across all jobs,
+    # "docs_in_job" is the number of docs needed to process in this job
+    docs_in_job = params.max_num_docs // params.num_machines
+    f = itertools.islice(path_to_articles.open('r'), docs_in_job)
     texts = [doc for doc in zip(*(f,) * config.MultiProcessing.num_texts_per_process)]
     num_texts = len(texts)
     print('Number of text chunks: {}'.format(num_texts))
