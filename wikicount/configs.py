@@ -1,12 +1,8 @@
 from pathlib import Path
 
 
-class LocalDirs:
+class Dirs:
     root = Path(__file__).parent.parent
-
-
-class Global:
-    debug = False
 
 
 class MultiProcessing:
@@ -15,5 +11,4 @@ class MultiProcessing:
 
 
 class Counting:
-    no_pos = 'ALL'
-    pos_list = ['PROPN', 'VERB', 'ADP', 'NOUN', 'SYM', 'NUM', no_pos]
+    possible_pos = ['PROPN', 'VERB', 'ADP', 'NOUN', 'SYM', 'NUM', 'ALL']

@@ -17,6 +17,10 @@ In the terminal:
 ludwig
 ```
 
+One Python pickle file will be saved for each Wikipedia article folder,
+ containing a dictionary called `w2df`, 
+ which contains information about the number of times a word occurs in one article. 
+
 ## Technical Notes
 
-Tested on Ubuntu 16.04 using Python=>3.6.
+Tested on Ubuntu 18.04 using Python==3.6.

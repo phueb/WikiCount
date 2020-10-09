@@ -4,7 +4,7 @@ import itertools
 from pathos.pools import ProcessPool
 from pathlib import Path
 
-from wikicount import config
+from wikicount import configs
 from wikicount.count import make_w2dfs
 
 
@@ -15,19 +15,27 @@ class Params(object):
     pos = attr.ib(validator=attr.validators.instance_of(str))
     max_num_docs = attr.ib(validator=attr.validators.instance_of(int))
     min_frequency = attr.ib(validator=attr.validators.instance_of(int))
-    # ludwig
-    param_name = attr.ib(validator=attr.validators.instance_of(str))
-    job_name = attr.ib(validator=attr.validators.instance_of(str))
 
     @pos.validator
     def check(self, _, value):
-        if value not in config.Counting.pos_list:
-            raise ValueError('pos must be in {}'.format(config.Counting.pos_list))
+        if value not in configs.Counting.possible_pos:
+            raise ValueError('pos must be in {}'.format(configs.Counting.possible_pos))
+
+    @classmethod
+    def from_param2val(cls, param2val):
+        """
+        instantiate class.
+        exclude keys from param2val which are added by Ludwig.
+        they are relevant to job submission only.
+        """
+        kwargs = {k: v for k, v in param2val.items()
+                  if k not in ['job_name', 'param_name', 'project_path', 'save_path']}
+        return cls(**kwargs)
 
 
 def main(param2val):  # param2val will be different on each machine
 
-    params = Params(**param2val)
+    params = Params.from_param2val(param2val)
     print(params)
 
     research_data_path = Path(param2val['project_path']).parent
@@ -43,13 +51,13 @@ def main(param2val):  # param2val will be different on each machine
     # "docs_in_job" is the number of docs needed to process in this job
     docs_in_job = params.max_num_docs // params.num_machines
     f = itertools.islice(path_to_articles.open('r'), docs_in_job)
-    texts = [doc for doc in zip(*(f,) * config.MultiProcessing.num_texts_per_process)]
+    texts = [doc for doc in zip(*(f,) * configs.MultiProcessing.num_texts_per_process)]
     num_texts = len(texts)
     print('Number of text chunks: {}'.format(num_texts))
 
     # count in multiple processes
-    pool = ProcessPool(config.MultiProcessing.num_workers)
-    max_num_docs_per_worker = params.max_num_docs // config.MultiProcessing.num_workers
+    pool = ProcessPool(configs.MultiProcessing.num_workers)
+    max_num_docs_per_worker = params.max_num_docs // configs.MultiProcessing.num_workers
     results = pool.map(make_w2dfs,
                        texts,  # first arg
                        [params.pos] * num_texts,  # second arg

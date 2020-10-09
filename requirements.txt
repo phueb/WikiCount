@@ -1,4 +1,4 @@
-spacy
-https://github.com/phueb/Ludwig/archive/v1.2.1.tar.gz
-pathos
-attrs
+spacy==2.3.2
+https://github.com/phueb/Ludwig/archive/v2.1.3.tar.gz
+pathos==0.2.6
+attrs==20.2.0
