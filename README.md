@@ -18,8 +18,8 @@ ludwig
 ```
 
 One Python pickle file will be saved for each Wikipedia article folder,
- containing a dictionary called `w2df`, 
- which contains information about the number of times a word occurs in one article. 
+ containing a list of Python dictionaries, 
+ each containing information about the number of times a word occurs in one article. 
 
 ## Technical Notes
 
