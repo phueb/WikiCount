@@ -11,7 +11,7 @@ MAX_NUM_DOCS = param2requests.get('max_num_docs', param2default['max_num_docs'])
 POS = 'ALL'
 
 vocab = Counter()
-
+num_docs = 0
 for wiki_param_name in PARAM_NAMES:
     wiki_param_path = RESEARCH_DATA_PATH / 'CreateWikiCorpus' / 'runs' / wiki_param_name
     if not wiki_param_path.exists():
@@ -26,10 +26,11 @@ for wiki_param_name in PARAM_NAMES:
         w2dfs = pickle.load(f)
 
     # update vocab - one doc/article at a time
-    for n, w2df in enumerate(w2dfs):
+    for w2df in w2dfs:
         vocab.update(w2df)
-        if n % 1000 == 0:
-            print(f'param={wiki_param_name} | article={n:,}/{MAX_NUM_DOCS:,}')
+        num_docs += 1
+        if num_docs % 1000 == 0:
+            print(f'param={wiki_param_name} | article={num_docs:>12,}/{MAX_NUM_DOCS:,}')
 
 # save vocab to text file
 out_path = configs.Dirs.root / f'vocab_{MAX_NUM_DOCS}_{POS}.txt'
