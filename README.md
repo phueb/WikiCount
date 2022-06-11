@@ -1,6 +1,6 @@
 # WikiCount
 
-Research code to count words in all available English Wikipedia articles.
+Research code to count words in English Wikipedia 2018.
 
 ## Requirements
 
@@ -11,16 +11,16 @@ That is where Wikipedia articles are stored.
 
 ## Usage
 
-In the terminal:
+Use the `ludwig` CLI to run all jobs (on your local machine or remote workers owned by the lab).
 
 ```bash
 ludwig
 ```
 
-One Python pickle file will be saved for each Wikipedia article folder,
- containing a list of Python dictionaries, 
- each containing information about the number of times a word occurs in one article. 
+Each job will do the following: 
+One Python pickle file will be saved for each Wikipedia article folder included in the job. 
+This file contains a list of Python dictionaries, each containing information about the number of times a word occurs in one article. 
 
-## Technical Notes
+## Compatibility
 
-Tested on Ubuntu 18.04 using Python==3.6.
+Tested on Ubuntu 18.04 using Python 3.6.
